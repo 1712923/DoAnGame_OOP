@@ -218,6 +218,7 @@ void Manger::loGic()
 
 void Manger::Run()
 {
+
 	printScreen();
 	Print();
 	while (!quit)
@@ -233,7 +234,9 @@ void Manger::Run()
 		cout << "Player1 WIN the Game" << endl;
 	}
 	else if (score2 > score1)
+	{
 		cout << "Player2 WIN the Game" << endl;
+	}
 	gotoXY(43, 27);
 }
 
@@ -253,8 +256,14 @@ void Manger::RunOne()
 	{
 		cout << "Computer WIN the Game" << endl;
 	}
-	else if (score2 < score1)
+	else if (score2 > score1)
+	{
 		cout << "Player2 WIN the Game" << endl;
+	}
+
+	luuDiem(score2);
+	ghiBangDiem();
+
 	gotoXY(43, 27);
 }
 
@@ -306,6 +315,54 @@ void printScreen()
 	}
 }
 
+void Manger::luuDiem(int score) // luu diem
+{
+	bangDiem.push_back(score);
+	sort(bangDiem.begin(), bangDiem.end());
+
+	while (bangDiem.size() > 15)  //chi lay top 15 diem cao nhat
+	{
+		bangDiem.erase(bangDiem.begin());
+	}
+}
+
+void Manger::ghiBangDiem()//ghi bang diem ra file
+{
+	ofstream fileout(bangThanhTich, ios::app);
+	for (int i = bangDiem.size()-1; i >= 0; i--) 
+	{
+		int j = 1;
+		fileout << bangDiem[i] << "\n";
+		j++;
+	}
+
+	fileout.close();	
+}
+
+
+void Manger::hienBangThanhTich() //hien top diem cao ra man hinh
+{
+	vector<int> bangDiem;
+	ifstream filein(bangThanhTich);
+	int score;
+
+	while (filein >> score)
+	{
+		bangDiem.push_back(score);
+	}
+	system("cls");
+
+	cout << "Top Thanh Tich: " << endl;
+
+	for (int i = 0; i < bangDiem.size(); i++) 
+	{
+		cout << bangDiem[i] << endl;
+	}
+	cout << endl;
+	filein.close();
+}
+
+
 void Print()
 {
 
@@ -318,29 +375,35 @@ void Project()
 	gotoXY(8, 3);
 	TextColor(1);
 	cout << "<<<<<<<<PONG-GAME>>>>>>>>" << endl;
-	gotoXY(1, 6);
+	gotoXY(1, 5);
 	TextColor(2);
 	cout << "----------------------------------------" << endl;
-	gotoXY(11, 7);
+	gotoXY(11, 6);
 	TextColor(3);
 	cout << "Press 1 : One Player ";
-	gotoXY(11, 9);
+	gotoXY(11, 8);
 	cout << "Press 2 : Two Player ";
-	gotoXY(1, 8);
+	gotoXY(1, 7);
 	TextColor(2);
 	cout << "----------------------------------------" << endl;
-	gotoXY(1, 10);
+	gotoXY(1, 9);
 	cout << "----------------------------------------" << endl;
-	gotoXY(1, 12);
+	gotoXY(1, 11);
 	cout << "----------------------------------------" << endl;
-	gotoXY(11, 11);
+	gotoXY(11, 10);
 	TextColor(3);
 	cout << "Press 3 : Instruction";
-	gotoXY(12, 13);
+	gotoXY(11, 12);
 	TextColor(3);
-	cout << "Press 0 to QUIT ";
-	gotoXY(1, 14);
+	cout << "Press 4 : Bang Thanh Tich ";
+	gotoXY(1, 13);
 	TextColor(2);
+	cout << "----------------------------------------" << endl;
+	gotoXY(11, 14);
+	TextColor(3);
+	cout << "Press 0 : Quit Game ";
+	TextColor(2);
+	gotoXY(1, 15);
 	cout << "----------------------------------------" << endl;
 	gotoXY(12, 16);
 	TextColor(4);
@@ -387,6 +450,15 @@ void Project()
 		cout << "Player2: P: up, L:down";
 		TextColor(6);
 		gotoXY(2, 13);
+		system("pause");
+		system("cls");
+		Project();
+	}
+	else if (n == 4)
+	{
+		system("cls");
+		printScreen();
+		Manger::hienBangThanhTich();
 		system("pause");
 		system("cls");
 		Project();

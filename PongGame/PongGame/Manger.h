@@ -4,8 +4,13 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include <conio.h>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <algorithm>
 using namespace std;
 
+const string bangThanhTich = "BangThanhTich.txt";
 class Manger
 {
 private:
@@ -18,6 +23,8 @@ private:
 	Paddle* player1;
 	Paddle* player2;
 	char up1, up2, down1, down2;
+	vector<int> bangDiem;
+
 public:
 	Manger(int, int); // Constructor for Manger
 	~Manger();// Destructor for Manger
@@ -28,6 +35,9 @@ public:
 	void Run();// Chạy các lệnh thực thi
 	void RunOne();//Chạy các lệnh thực thi trong chế độ 1 người chơi.
 	void inPutOne();// nhận các lệnh nhập từ bàn phím, xử lí chúng trong chế độ 1 người chơi.
+	void luuDiem(int score);//luu diem
+	void ghiBangDiem(); //ghi bang diem ra file
+	static void hienBangThanhTich();//hien bang diem ra man hinh
 
 };
 
