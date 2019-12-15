@@ -28,6 +28,14 @@ private:
 public:
 	Manger(int, int); // Constructor for Manger
 	~Manger();// Destructor for Manger
+	void setScore1(int Score1)
+	{
+		this->score1 = Score1;
+	}
+	void setScore2(int Score2)
+	{
+		this->score2 = Score2;
+	}
 	void scoreUp(Paddle*);// Tăng điểm cho người chơi
 	void draw(); // In ra màn hình các đối tượng 
 	void inPut();// nhận các lệnh nhập từ bàn phím, xử lí chúng
