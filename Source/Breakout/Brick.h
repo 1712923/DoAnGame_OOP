@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 #include <SFML\Graphics.hpp>
 #include <SFML\Audio.hpp>
@@ -8,7 +8,7 @@
 static std::random_device brickRanDev;
 enum Power { NONE = 0, MAGNETIC = 1, BOMB = 2, EXTRABALL = 3};
 
-
+//khởi tạo những viên gạch
 class Brick : public sf::RectangleShape
 {
 public:

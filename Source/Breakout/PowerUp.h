@@ -1,6 +1,7 @@
-#pragma once
+﻿#pragma once
 #include <SFML\Graphics.hpp>
 
+//vật phẩm
 class PowerUp : public sf::RectangleShape
 {
 public:

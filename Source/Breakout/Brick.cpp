@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Brick.h"
 
 
@@ -58,7 +58,7 @@ Brick::~Brick()
 {
 }
 
-bool Brick::isBroken()
+bool Brick::isBroken() //kiểm tra Brick có mất chưa
 {
 	if (broken == false)
 	{
@@ -70,13 +70,13 @@ bool Brick::isBroken()
 	}
 }
 
-void Brick::crush()
+void Brick::crush() //va chạm
 {
 	broken = true;
 	breakSound.play();
 }
 
-int Brick::whichPower()
+int Brick::whichPower() 
 {
 	return itsPower;
 }

@@ -1,7 +1,7 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "PowerUp.h"
 
-
+//vật phẩm
 PowerUp::PowerUp()
 {
 	sf::RectangleShape::setSize(sf::Vector2f(25.f, 9.f));
@@ -14,12 +14,12 @@ PowerUp::~PowerUp()
 }
 
 
-void PowerUp::fallDown(double fallFactor)
+void PowerUp::fallDown(double fallFactor) //vật phẩm di chuyển xuống
 {
 	sf::RectangleShape::move(0, (1.5 * fallFactor) );
 }
 
-void PowerUp::draw(sf::RenderWindow & theWindow, double fallFactor)
+void PowerUp::draw(sf::RenderWindow & theWindow, double fallFactor) //vẽ vật phẩm
 {
 	theWindow.draw(*this);
 	fallDown(fallFactor);

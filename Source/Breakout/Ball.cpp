@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Ball.h"
 
 
@@ -20,48 +20,48 @@ Ball::Ball() : edgePoints(8, sf::Vector2f(0.f, 0.f))
 }
 
 
-Ball::~Ball()
+Ball::~Ball() //hàm hủy Ball
 {
 }
 
-bool Ball::isStuck()
+bool Ball::isStuck() //kiểm tra Ball có dính vào vợt không
 {
 	return stuck;
 }
 
-void Ball::stick()
+void Ball::stick() //cho Ball dính vào vợt
 {
 	stuck = true;
 }
 
-void Ball::unStick()
+void Ball::unStick() //cho Ball rời khỏi vợt
 {
 	stuck = false;
 }
 
-float Ball::getSpeed()
+float Ball::getSpeed() //nhận giá trị tốc độ
 {
 	return itsSpeed;
 }
 
-void Ball::setSpeed(float multiple)
+void Ball::setSpeed(float multiple) //đặt tốc độ
 {
 	itsSpeed *= multiple;
 }
 
-long double Ball::getAngle()
+long double Ball::getAngle() // nhận góc độ
 {
 	return itsAngle;
 }
 
-void Ball::setAngle(long double direction)
+void Ball::setAngle(long double direction)  //đặt góc độ
 {
 	itsAngle = direction;
 }
 
 std::vector<sf::Vector2f> & Ball::getEdgePoints()
 {
-	// [0] is the left point. This moves clockwise
+	// [0] là điểm bên trái. Theo chiều kim đồng hồ
 	edgePoints[0] = sf::Vector2f((sf::CircleShape::getPosition().x - sf::CircleShape::getRadius()), (sf::CircleShape::getPosition().y));
 
 	edgePoints[1] = sf::Vector2f( (sf::CircleShape::getPosition().x - (sf::CircleShape::getRadius() * cos(std::_Pi / 4)) ),
@@ -85,7 +85,7 @@ std::vector<sf::Vector2f> & Ball::getEdgePoints()
 	return edgePoints;
 }
 
-bool Ball::isDead()
+bool Ball::isDead() 
 {
 	if (dead == true)
 	{
@@ -97,7 +97,7 @@ bool Ball::isDead()
 	}
 }
 
-void Ball::kill()
+void Ball::kill() 
 {
 	dead = true;
 }
