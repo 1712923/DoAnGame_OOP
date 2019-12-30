@@ -20,8 +20,8 @@ using std::endl;
 
 int main()
 {
-
-	std::uniform_int_distribution<int> resetAngleDist(45, 135);	// Used for setting ball starter angles
+	//các hàm âm thâm và giao diện
+	std::uniform_int_distribution<int> resetAngleDist(45, 135);	// Set góc độ ban đầu của bóng
 
 	sf::ContextSettings context;
 	context.antialiasingLevel = 8;
@@ -65,13 +65,13 @@ int main()
 		cout << "Failed to load for textureForBricks" << endl;
 	}
 
-	// Making background
+	// Tạo Background
 	sf::Sprite background;
 	background.setTexture(galaxyTexture);
 	background.setScale(2, 2);
 	background.setColor(sf::Color(255, 255, 255, 220));
 
-	// Setting game's borders
+	// Tạo rào xung quanh của màn game
 	sf::RectangleShape borderUp;
 	borderUp.setSize(sf::Vector2f(550, -5) );
 	borderUp.setPosition(sf::Vector2f(0, 0) );
@@ -96,7 +96,7 @@ int main()
 	borderRight.setFillColor(sf::Color::Transparent);
 	sf::FloatRect borderRightBound = borderRight.getGlobalBounds();
 
-	// Making the pad(Deflector)
+	// tạo Vợt bóng bàn
 	sf::ConvexShape ballDeflector;
 	ballDeflector.setPointCount(6);
 	ballDeflector.setPoint(0, sf::Vector2f(225.f, 590.f));
@@ -109,17 +109,17 @@ int main()
 	ballDeflector.setFillColor(sf::Color::Yellow);
 	ballDeflector.setTexture(&galaxyTexture);
 	ballDeflector.setTextureRect(sf::IntRect(145, 180, 250, 200));
-	sf::Vector2f deflectorPosition(275.f, 577.f);	//Made to use with ball positioning
+	sf::Vector2f deflectorPosition(275.f, 577.f)
 
-	float deflectorWidth = 100;
-	float deflectorHight = 13;
-	float deflectorSpeed = 4;
+	float deflectorWidth = 100; //chiều rộng của vợt
+	float deflectorHight = 13; //chiều dài của vợt
+	float deflectorSpeed = 4; //tốc độ của vợt
 	float initialDeflectorSpeed = deflectorSpeed;
 	
 	bool deflectorMagnetized = false;
 
 
-	// The bricks and their positions on the window
+	// Gạch và vị trí của chúng trên màn hình
 	std::vector<Brick> brickVector(50);
 
 	for (int row = 0; row < 5; ++row)
@@ -132,7 +132,7 @@ int main()
 		}
 	}
 
-	//The ball
+	//Bóng
 	std::vector<Ball> ballVector(1);
 	ballVector[0].move(deflectorPosition.x, deflectorPosition.y - ballVector[0].getRadius() - 1);//set initial position on top of deflector
 	float ballSpeed = ballVector[0].getSpeed();
@@ -145,7 +145,7 @@ int main()
 	double bombSpeed = initialBombSpeed;
 
 
-	//Texts
+	//Chữ và thông báo
 	sf::Font sansation;
 	if (!sansation.loadFromFile("sansation.ttf") )
 	{
@@ -209,18 +209,18 @@ int main()
 	playAgain.setString("Press 'P' to play again.");
 
 
-	//Game Variables
-	bool startScreen = true;	//Used to show instructions before starting game
-	bool paused = false;	
-	bool pause_unpause_inhibitor = false;	//Used to prevent instant unpause after a pause in the Space event pause condition below.
-	bool gameLost = false;
-	bool gameWon = false;
+	//Chức năng game
+	bool startScreen = true;	//Hướng dẫn chơi trước khi bắt đầu game
+	bool paused = false;	//tạm dừng
+	bool pause_unpause_inhibitor = false;	//Được sử dụng để ngăn chặn tạm dừng ngay lập tức
+	bool gameLost = false;  //Thua game
+	bool gameWon = false;  //Thắng game
 	int brokenBricks = 0;
 	int numberOfBalls = 1;
-	int movingBalls = 0;	// Used to adjust speeds to compensate for increased looping
-	double powerUpFallFactor = 1;	// Used to adjust how fast powerUps fall
+	int movingBalls = 0;	// Được sử dụng để điều chỉnh tốc độ/
+	double powerUpFallFactor = 1;	// Tốc độ vật phẩm
 
-	//Time 
+	//Thời gian
 	sf::Clock bombClock;
 	sf::Time timeSinceDenotation;
 	int millisecondsperLoop = 11;	// If changed, adjust deflector, ball, powerUp, bomb speeds.
@@ -245,13 +245,13 @@ int main()
 
 			if (event.type == sf::Event::KeyPressed)
 			{
-				//Until the start screen is bypassed with enter, nothing will be controlled
+				//Trước khi ấn Enter, người dùng không thể làm gì khác
 				if (event.key.code == sf::Keyboard::Enter)
 				{
 					startScreen = false;
 				}
 
-				//While paused all objects stop updating until unpaused. They resume from their pre-paused state
+				//Trong khi tạm dừng, tất cả các đối tượng dừng cập nhật cho đến khi tiếp tục
 				if (startScreen == false)
 				{
 					if (event.key.code == sf::Keyboard::Space)
@@ -270,7 +270,7 @@ int main()
 					}
 				}
 
-				// Some Controls
+				// Một số điều khiển
 				if (paused == false && startScreen == false)
 				{
 					if ((event.key.code == sf::Keyboard::Up) )
@@ -357,7 +357,7 @@ int main()
 		}
 
 
-		//Moving the ball
+		//Di chuyển bóng
 		for (auto ballIter = ballVector.begin(); ballIter != ballVector.end(); ++ballIter)
 		{
 			if (brokenBricks == 50)
@@ -402,7 +402,7 @@ int main()
 						}
 					}
 
-					//Ball bouncing from deflector
+					//Bóng văng ra sau khi chạm vào vợt
 					if (((*ballIter).getPosition().x >= (deflectorPosition.x - deflectorWidth / 2)) &&
 						((*ballIter).getPosition().x <= (deflectorPosition.x + deflectorWidth / 2)) &&
 						(((*ballIter).getPosition().y + (*ballIter).getRadius()) >= deflectorPosition.y) &&
@@ -442,7 +442,7 @@ int main()
 					}
 
 
-					//Ball breaking bricks
+					//Bóng chạm và phá gạch
 					if (brokenBricks == 50)
 					{
 						gameWon = true;
@@ -464,7 +464,7 @@ int main()
 											(*brickIter).crush();
 											++brokenBricks;
 
-											//Note: Brick origin is their top left corner, ball origin is its center
+											//Note: Bóng ban đầu ở vị trí trung tâm
 											//ball ricochet off of top side
 											if (((*ballIter).getPosition().x >= (*brickIter).getPosition().x - (*ballIter).getRadius()) &&
 												((*ballIter).getPosition().x <= ((*brickIter).getPosition().x + (*brickIter).getSize().x + (*ballIter).getRadius())) &&
@@ -509,7 +509,7 @@ int main()
 		}
 		
 
-		//Move deflector
+		//Di chuyển vợt
 		if (gameLost == false && gameWon == false && paused == false && startScreen == false)
 		{
 			if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) && (borderLeftBound.intersects(ballDeflector.getGlobalBounds()) == false))
@@ -582,7 +582,7 @@ int main()
 		}
 
 
-		// Draw Start screen
+		// Vẽ màn hình bắt đầu
 		if (gameLost == false && gameWon == false && paused == false && startScreen == true)
 		{
 			mainWindow.clear(sf::Color::Cyan);
@@ -591,7 +591,7 @@ int main()
 			mainWindow.display();
 		}
 
-		// Draw gameplay
+		// Vẽ màn chơi
 		if (gameLost == false && gameWon == false && paused == false && startScreen == false)
 		{
 			mainWindow.clear(sf::Color::Cyan);
@@ -669,7 +669,7 @@ int main()
 			mainWindow.display();
 		}
 
-		// Draw lose screen
+		// Vẽ màn hình sau khi thua
 		if (gameLost == true && gameWon == false && paused == false && startScreen == false)
 		{
 			mainWindow.clear(sf::Color::Cyan);
@@ -679,7 +679,7 @@ int main()
 			mainWindow.display();
 		}
 
-		// Draw win screen
+		// Vẽ màn hình sau khi thắng
 		if (gameLost == false && gameWon == true && paused == false && startScreen == false)
 		{
 			mainWindow.clear(sf::Color::Cyan);
@@ -690,7 +690,7 @@ int main()
 		}
 
 
-		//Throttling thread to make loop time consistent
+		//Điều tiết để làm cho thời gian vòng lặp phù hợp
 		double loopTime = threadTimer.getElapsedTime().asMilliseconds();
 		std::floor(loopTime);
 		if (loopTime < millisecondsperLoop)
@@ -701,7 +701,6 @@ int main()
 	}
 
 	std::this_thread::sleep_for(std::chrono::seconds(2));
-	// Join/end any running threads here.
 
 	return 0;
 }
