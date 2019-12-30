@@ -2,7 +2,7 @@
 #include "Ball.h"
 
 
-Ball::Ball() : edgePoints(8, sf::Vector2f(0.f, 0.f))
+Ball::Ball() : edgePoints(8, sf::Vector2f(0.f, 0.f)) //hàm tạo Ball
 {
 	std::uniform_int_distribution<int> startingAngleDist(45, 135);	//Launch angle from deflector
 	
@@ -85,7 +85,7 @@ std::vector<sf::Vector2f> & Ball::getEdgePoints()
 	return edgePoints;
 }
 
-bool Ball::isDead() 
+bool Ball::isDead() //kiểm tra bóng có bị mất không
 {
 	if (dead == true)
 	{
@@ -97,7 +97,7 @@ bool Ball::isDead()
 	}
 }
 
-void Ball::kill() 
+void Ball::kill() //xóa bóng
 {
 	dead = true;
 }
