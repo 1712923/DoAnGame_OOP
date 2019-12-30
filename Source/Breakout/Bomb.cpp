@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Bomb.h"
 
+//hàm đặt Bomb nhưng không sử dụng
 Bomb::Bomb()
 {
 	setFillColor(sf::Color(139, 139, 147));
